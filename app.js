@@ -4,6 +4,9 @@ const cors = require("cors");
 
 // IMPORT ROUTES
 const userController = require("./controllers/userController");
+const achievementController = require("./controllers/achievementController");
+const allergyController = require("./controllers/allergyController");
+const medicationController = require("./controllers/medicationController");
 
 // CONFIGURATION
 const app = express();
@@ -12,6 +15,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/users", userController);
+app.use("/users/:id/achievements", achievementController);
+app.use("/users/:id/allergies", allergyController);
+app.use("/users/:id/medications", medicationController);
 
 // ROUTE HANDLERS
 const homePageHandler = (req, res) => {
