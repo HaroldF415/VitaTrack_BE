@@ -1,7 +1,7 @@
 const express = require("express");
 const achievementRouter = express.Router({ mergeParams: true });
 
-const { getAllAchievementsByUser, getAchievementById, createAchievement, updateAchievement, deleteAchievement } = require("../queries/achievementsQueries.js");
+const { getAllAchievementsByUser, getAchievementById, createAchievement, updateAchievement, deleteAchievement } = require("../queries/achievementQueries.js");
 
 const handleErrors = (res, error, data) => {
   if (error) {

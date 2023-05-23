@@ -2,7 +2,7 @@ const express = require("express");
 const userRouter = express.Router();
 
 // MIDDLEWARE
-const validateUser = require("../validations/userValidations.js");
+const validateUser = require("../validations/createUserValidator.js");
 
 const { getAllUsers, getUserById, createUser, updateUser, deleteUser } = require("../queries/userQueries.js");
 
@@ -20,7 +20,7 @@ const handleErrors = (res, error, data) => {
 // INDEX ROUTE
 userRouter.get("/users", async (req, res) => {
   const { error, users } = await getAllUsers();
-
+  console.log(users);
   return handleErrors(res, error, users);
 });
 
