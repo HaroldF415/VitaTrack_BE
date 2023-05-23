@@ -1,47 +1,45 @@
 const express = require("express");
-const allergyRouter = express.Router();
+const allergyRouter = express.Router({ mergeParams: true });
 
-const { getAllAllergies, getAllergyById, createAllergy, updateAllergy, deleteAllergy } = require("../queries/allergyQueries.js");
+const { getAllAllergiesByUser, getAllergyById, createAllergy, updateAllergy, deleteAllergy } = require("../queries/allergyQueries.js");
 
-// Helper Error Function
 const handleErrors = (res, error, data) => {
   if (error) {
-    return res.status(500).json({ error });
+    return res.status(500).json({ error: "Server Error" });
   }
   return res.status(200).json(data);
 };
 
-// INDEX
+// GET all allergies of a user
 allergyRouter.get("/", async (req, res) => {
-  const allergies = await getAllAllergies();
-  handleErrors(res, allergies.error, allergies);
+  const userId = req.params.id;
+  const { error, allergies } = await getAllAllergiesByUser(userId);
+
+  return handleErrors(res, error, allergies);
 });
 
-// SHOW
-allergyRouter.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const allergy = await getAllergyById(id);
-  handleErrors(res, allergy.error, allergy);
-});
-
-// CREATE
+// POST new allergy for a user
 allergyRouter.post("/", async (req, res) => {
-  const newAllergy = await createAllergy(req.body);
-  handleErrors(res, newAllergy.error, newAllergy);
+  const userId = req.params.id;
+  const { error, newAllergy } = await createAllergy(req.body, userId);
+
+  return handleErrors(res, error, newAllergy);
 });
 
-// UPDATE
-allergyRouter.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const updatedAllergy = await updateAllergy(id, req.body);
-  handleErrors(res, updatedAllergy.error, updatedAllergy);
+// DELETE allergy of a user by allergy ID
+allergyRouter.delete("/:allergyId", async (req, res) => {
+  const allergyId = req.params.allergyId;
+  const { error, deletedAllergy } = await deleteAllergy(allergyId);
+
+  return handleErrors(res, error, deletedAllergy);
 });
 
-// DELETE
-allergyRouter.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-  const deletedAllergy = await deleteAllergy(id);
-  handleErrors(res, deletedAllergy.error, deletedAllergy);
+// UPDATE allergy of a user by allergy ID
+allergyRouter.put("/:allergyId", async (req, res) => {
+  const allergyId = req.params.allergyId;
+  const { error, updatedAllergy } = await updateAllergy(allergyId, req.body);
+
+  return handleErrors(res, error, updatedAllergy);
 });
 
 module.exports = allergyRouter;

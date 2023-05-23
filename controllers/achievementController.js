@@ -1,52 +1,45 @@
 const express = require("express");
-const achievementsRouter = express.Router();
+const achievementRouter = express.Router({ mergeParams: true });
 
-const { getAllAchievements, getAchievementById, createAchievement, updateAchievement, deleteAchievement } = require("../queries/achievementsQueries.js");
+const { getAllAchievementsByUser, getAchievementById, createAchievement, updateAchievement, deleteAchievement } = require("../queries/achievementsQueries.js");
 
 const handleErrors = (res, error, data) => {
   if (error) {
     return res.status(500).json({ error: "Server Error" });
   }
-
   return res.status(200).json(data);
 };
 
-// INDEX ROUTE
-achievementsRouter.get("/achievements", async (req, res) => {
-  const { error, achievements } = await getAllAchievements();
+// GET all achievements of a user
+achievementRouter.get("/", async (req, res) => {
+  const userId = req.params.id;
+  const { error, achievements } = await getAllAchievementsByUser(userId);
 
   return handleErrors(res, error, achievements);
 });
 
-// SHOW ACHIEVEMENT ROUTE - by id
-achievementsRouter.get("/achievements/:id", async (req, res) => {
-  const { id } = req.params;
-  const { error, achievement } = await getAchievementById(id);
-
-  return handleErrors(res, error, achievement);
-});
-
-// ADD ACHIEVEMENT ROUTE
-achievementsRouter.post("/achievements", async (req, res) => {
-  const { error, newAchievement } = await createAchievement(req.body);
+// POST new achievement for a user
+achievementRouter.post("/", async (req, res) => {
+  const userId = req.params.id;
+  const { error, newAchievement } = await createAchievement(req.body, userId);
 
   return handleErrors(res, error, newAchievement);
 });
 
-// UPDATE ACHIEVEMENT ROUTE
-achievementsRouter.put("/achievements/:id", async (req, res) => {
-  const { id } = req.params;
-  const { error, updatedAchievement } = await updateAchievement(id, req.body);
-
-  return handleErrors(res, error, updatedAchievement);
-});
-
-// DELETE ACHIEVEMENT ROUTE
-achievementsRouter.delete("/achievements/:id", async (req, res) => {
-  const { id } = req.params;
-  const { error, deletedAchievement } = await deleteAchievement(id);
+// DELETE achievement of a user by achievement ID
+achievementRouter.delete("/:achievementId", async (req, res) => {
+  const achievementId = req.params.achievementId;
+  const { error, deletedAchievement } = await deleteAchievement(achievementId);
 
   return handleErrors(res, error, deletedAchievement);
 });
 
-module.exports = achievementsRouter;
+// UPDATE achievement of a user by achievement ID
+achievementRouter.put("/:achievementId", async (req, res) => {
+  const achievementId = req.params.achievementId;
+  const { error, updatedAchievement } = await updateAchievement(achievementId, req.body);
+
+  return handleErrors(res, error, updatedAchievement);
+});
+
+module.exports = achievementRouter;
