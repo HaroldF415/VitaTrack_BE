@@ -1,3 +1,5 @@
+const db = require("../db/dbConfig.js");
+
 async function getUserById(id) {
   try {
     const user = await db.one("SELECT * FROM users WHERE id = $1", id);
@@ -14,3 +16,17 @@ async function getUserById(id) {
     return { error, user: null };
   }
 }
+
+async function getAllUsers() {
+  try {
+    const users = await db.manyOrNone("SELECT * FROM users");
+    return { error: null, users };
+  } catch (error) {
+    return { error, users: null };
+  }
+}
+
+module.exports = {
+  getUserById,
+  getAllUsers,
+};
