@@ -1,4 +1,7 @@
-DROP TABLE IF EXISTS users CASCADE;
+DROP DATABASE IF EXISTS vita_track;
+CREATE DATABASE vita_track;
+
+\c vita_track;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -19,23 +22,17 @@ CREATE TABLE users (
   medication_reminder BOOLEAN NOT NULL
 );
 
-DROP TABLE IF EXISTS achievements CASCADE;
-
 CREATE TABLE achievements (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   achievement TEXT NOT NULL
 );
 
-DROP TABLE IF EXISTS allergies CASCADE;
-
 CREATE TABLE allergies (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   allergy TEXT NOT NULL
 );
-
-DROP TABLE IF EXISTS medications CASCADE;
 
 CREATE TABLE medications (
   id SERIAL PRIMARY KEY,

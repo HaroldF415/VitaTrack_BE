@@ -10,7 +10,7 @@ VALUES
   ('User5', 'Charlie', 'Brown', 'user5@example.com', 'password5', '1990-05-05', 70.0, 175.0, 'low', 'lose', ARRAY[4.6, 5.1, 4.7, 4.8], false, '2023-05-05', 'pescatarian', true),
   ('User6', 'Lucy', 'Green', 'user6@example.com', 'password6', '1992-06-06', 62.0, 160.0, 'high', 'gain', ARRAY[4.9, 5.2, 5.0, 5.1], true, '2023-05-06', 'vegetarian', false),
   ('User7', 'Tom', 'Gray', 'user7@example.com', 'password7', '1987-07-07', 80.0, 185.0, 'medium', 'maintain', ARRAY[5.0, 5.3, 5.1, 5.2], false, '2023-05-07', 'vegan', true),
-  ('User8', 'Ella', 'White', 'user8@example.com', 'password8', '1993-08-08', 68.0, 170.0, 'low', 'lose', ARRAY[4.8, 5.0, 4.9, 5.1], true, '2023-05-08', 'none', false),
+  ('User8', 'Ella', 'White', 'user8@example.com', 'password8', '1993-08-08', 68.0, 170.0, 'low', 'lose', ARRAY[4.8, 5.0, 4.9, 5.1], true, '2023-05-08', 'none', false);
 
 -- achievements seed data
 INSERT INTO achievements (user_id, achievement) 
@@ -50,6 +50,4 @@ VALUES
   (5, 'Amlodipine'),
   (6, 'Metoprolol'),
   (7, 'Omeprazole'),
-  (8, 'Simvastatin'),
-  (9, 'Losartan'),
-  (10, 'Albuterol');
+  (8, 'Simvastatin');
