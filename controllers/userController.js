@@ -1,5 +1,4 @@
-const express = require("express");
-const userRouter = express.Router();
+const users = require("express").Router();
 
 // MIDDLEWARE
 const validateUser = require("../validations/createUserValidator.js");
@@ -18,14 +17,14 @@ const handleErrors = (res, error, data) => {
 };
 
 // INDEX ROUTE
-userRouter.get("/users", async (req, res) => {
+users.get("/", async (req, res) => {
   const { error, users } = await getAllUsers();
   console.log(users);
   return handleErrors(res, error, users);
 });
 
 // SHOW USER ROUTE - by id
-userRouter.get("/users/:id", async (req, res) => {
+users.get("/:id", async (req, res) => {
   const { id } = req.params;
   const { error, user } = await getUserById(id);
 
@@ -33,14 +32,14 @@ userRouter.get("/users/:id", async (req, res) => {
 });
 
 // ADD USER ROUTE
-userRouter.post("/users", validateUser, async (req, res) => {
+users.post("/", validateUser, async (req, res) => {
   const { error, newUser } = await createUser(req.body);
 
   return handleErrors(res, error, newUser);
 });
 
 // UPDATE USER ROUTE
-userRouter.put("/users/:id", validateUser, async (req, res) => {
+users.put("/:id", validateUser, async (req, res) => {
   const { id } = req.params;
   const { error, updatedUser } = await updateUser(id, req.body);
 
@@ -48,11 +47,11 @@ userRouter.put("/users/:id", validateUser, async (req, res) => {
 });
 
 // DELETE USER ROUTE
-userRouter.delete("/users/:id", async (req, res) => {
+users.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const { error, deletedUser } = await deleteUser(id);
 
   return handleErrors(res, error, deletedUser);
 });
 
-module.exports = userRouter;
+module.exports = users;
