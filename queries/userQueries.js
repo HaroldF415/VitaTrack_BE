@@ -11,7 +11,7 @@ async function getUserById(id) {
     user.allergies = allergies;
     user.medications = medications;
 
-    return { error: null, user };
+    return { user };
   } catch (error) {
     return { error, user: null };
   }
