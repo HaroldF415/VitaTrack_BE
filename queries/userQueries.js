@@ -19,8 +19,8 @@ async function getUserById(id) {
 
 async function getAllUsers() {
   try {
-    const users = await db.manyOrNone("SELECT * FROM users");
-    return { error: null, users };
+    const users = await db.any("SELECT * FROM users");
+    return { users };
   } catch (error) {
     return { error, users: null };
   }
