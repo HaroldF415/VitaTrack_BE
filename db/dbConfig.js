@@ -8,7 +8,7 @@ const cn = DATABASE_URL
   ? {
       connectionString: DATABASE_URL,
       max: 30, // max number of clients in the pool
-      ssl: { rejectUnauthorized: false },
+      // ssl: { rejectUnauthorized: false },
     }
   : {
       host: PG_HOST,
