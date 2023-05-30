@@ -19,7 +19,6 @@ const handleErrors = (res, error, data) => {
 // INDEX ROUTE
 users.get("/", async (req, res) => {
   const { error, users } = await getAllUsers();
-  console.log(users);
   return handleErrors(res, error, users);
 });
 
@@ -27,7 +26,6 @@ users.get("/", async (req, res) => {
 users.get("/:id", async (req, res) => {
   const { id } = req.params;
   const { error, user } = await getUserById(id);
-
   return handleErrors(res, error, user);
 });
 
