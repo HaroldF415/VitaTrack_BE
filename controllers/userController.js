@@ -7,11 +7,11 @@ const { getAllUsers, getUserById, createUser, updateUser, deleteUser } = require
 
 // Helper Error Function
 const handleErrors = (res, error, data) => {
-  // if (error?.code === 0) {
-  //   return res.status(404).json({ error: "User Not Found" });
-  // } else if (error) {
-  //   return res.status(500).json({ error: "Server Error" });
-  // }
+  if (error?.code === 0) {
+    return res.status(404).json({ error: "User Not Found" });
+  } else if (error) {
+    return res.status(500).json({ error: "Server Error" });
+  }
 
   return res.status(200).json(data);
 };
