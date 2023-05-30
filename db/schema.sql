@@ -21,6 +21,7 @@ CREATE TABLE users (
   dietary_preferences VARCHAR(15) NOT NULL,
   medication_reminder BOOLEAN NOT NULL
 );
+--  many to many table and join table add ** 
 
 CREATE TABLE achievements (
   id SERIAL PRIMARY KEY,

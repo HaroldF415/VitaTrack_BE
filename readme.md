@@ -1,7 +1,3 @@
-Absolutely, here is a simple `README.md` file for your 'VitaTrack_BE' repo:
-
----
-
 # VitaTrack Backend (vitaTrack_BE)
 
 ## Description
